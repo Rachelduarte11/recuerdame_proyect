@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:recuerdame_proyect/screens/medication/add_medication.dart';
+import 'package:recuerdame_proyect/screens/notifications_reminders/notification_screen.dart';
 import 'package:recuerdame_proyect/screens/splash_screen.dart';
 import 'package:recuerdame_proyect/screens/welcome_screen.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
@@ -15,8 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, 
-      home: WelcomeScreen(),
+      debugShowCheckedModeBanner: false,
+      home: AddMedicationPage(),
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: primary,
