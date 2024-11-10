@@ -32,7 +32,7 @@ dependencies:
   flutter_svg: ^2.0.12
   flutter:
     sdk: flutter
-
+  calendar_view: ^1.2.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

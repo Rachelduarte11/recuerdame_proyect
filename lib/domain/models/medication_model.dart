@@ -9,5 +9,6 @@ class MedicationModel {
     required this.type,
     required this.duration,
     required this.frequency,
+
   });
 }

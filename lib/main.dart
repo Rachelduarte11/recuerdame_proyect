@@ -1,4 +1,6 @@
+import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:recuerdame_proyect/screens/home_screen.dart';
 import 'package:recuerdame_proyect/screens/medication/add_medication.dart';
 import 'package:recuerdame_proyect/screens/notifications_reminders/notification_screen.dart';
 import 'package:recuerdame_proyect/screens/splash_screen.dart';
@@ -16,36 +18,39 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AddMedicationPage(),
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: primary,
-        scaffoldBackgroundColor: background,
-        colorScheme: ColorScheme(
-          primary: primary,
-          secondary: background.withOpacity(0.4),
-          surface: primary,
-          error: negativeColor,
-          onPrimary: Colors.white,
-          onSecondary: txtColor,
-          onSurface: txtColor,
-          onBackground: txtColor,
-          onError: Colors.white,
-          brightness: Brightness.light,
-        ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: primary,
-          iconTheme: IconThemeData(color: Colors.white),
-          titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
-        ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: third,
-        ),
-        buttonTheme: ButtonThemeData(
-          buttonColor: third,
-          textTheme: ButtonTextTheme.primary,
+    return CalendarControllerProvider(
+      controller: EventController(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: HomeScreen(),
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primaryColor: primary,
+          scaffoldBackgroundColor: background,
+          colorScheme: ColorScheme(
+            primary: primary,
+            secondary: background.withOpacity(0.4),
+            surface: primary,
+            error: negativeColor,
+            onPrimary: Colors.white,
+            onSecondary: txtColor,
+            onSurface: txtColor,
+            onBackground: txtColor,
+            onError: Colors.white,
+            brightness: Brightness.light,
+          ),
+          appBarTheme: AppBarTheme(
+            backgroundColor: primary,
+            iconTheme: IconThemeData(color: Colors.white),
+            titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: third,
+          ),
+          buttonTheme: ButtonThemeData(
+            buttonColor: third,
+            textTheme: ButtonTextTheme.primary,
+          ),
         ),
       ),
     );
