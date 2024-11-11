@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:recuerdame_proyect/screens/home_screen.dart';
 import 'package:recuerdame_proyect/screens/medication/add_medication.dart';
 import 'package:recuerdame_proyect/screens/notifications_reminders/notification_screen.dart';
+import 'package:recuerdame_proyect/screens/profile/main_config-profile.dart';
+import 'package:recuerdame_proyect/screens/profile/main_edit-profile.dart';
+import 'package:recuerdame_proyect/screens/profile/main_notifications_config-profile.dart';
+import 'package:recuerdame_proyect/screens/profile/main_profile-screen.dart';
 import 'package:recuerdame_proyect/screens/splash_screen.dart';
 import 'package:recuerdame_proyect/screens/welcome_screen.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
@@ -22,9 +26,10 @@ class MyApp extends StatelessWidget {
       controller: EventController(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: NotificationSettingsScreen(),
         title: 'Flutter Demo',
         theme: ThemeData(
+          fontFamily: "LeagueSpartan",
           primaryColor: primary,
           scaffoldBackgroundColor: background,
           colorScheme: ColorScheme(
