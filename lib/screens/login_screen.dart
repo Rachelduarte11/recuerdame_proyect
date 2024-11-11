@@ -23,10 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color:primary),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
         title: Text(
           'Iniciar Sesión',
           style: TextStyle(
