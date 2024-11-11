@@ -7,6 +7,10 @@ import 'package:recuerdame_proyect/widgets/profile/profile_options-list.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
+  
+  void _navigateToEditProfile(BuildContext c) {
+    Navigator.pushNamed(c, "/profile/edit");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +19,6 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color:primary),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
         title: Text(
           'Mi Perfil',
           style: TextStyle(
@@ -36,14 +36,44 @@ class ProfileScreen extends StatelessWidget {
           children: [
             ProfileHeader(
               userName: 'John Doe',
-              profileImageUrl: 'https://example.com/profile.jpg',
+              profileImageUrl: 'http://via.placeholder.com/150x150',
             ),
             SizedBox(height: 24),
-            ProfileOptionList(),
+            _buildProfileOptionList(context),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigation()
+    );
+  }
+  
+  Widget _buildProfileOptionList(BuildContext c) {
+    return Column(
+      children: [
+        ProfileOptionItem(
+          icon: Icons.person,
+          label: "Perfil",
+          onTap: () {
+            _navigateToEditProfile(c);
+          },
+        ),
+        /**ProfileOptionItem(
+            icon: Icons.settings,
+            label: "Configuración",
+            onTap: () {
+            // Handle navigation to "Configuración" screen
+            },
+            ),**/
+        ProfileOptionItem(
+          icon: Icons.logout,
+          label: "Salir",
+          onTap: () {
+            // Handle logout functionality
+          },
+        ),
+      ],
     );
   }
 }
+
+
+

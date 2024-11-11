@@ -1,10 +1,16 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:recuerdame_proyect/router/router_generator.dart';
 import 'package:recuerdame_proyect/router/router_main.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemStatusBarContrastEnforced: true,
+    systemNavigationBarIconBrightness: Brightness.light, // Dark icons for navigation bar
+  ));
+
   runApp(const MyApp());
 }
 

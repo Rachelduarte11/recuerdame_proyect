@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({super.key});
+  const BottomNavigation({
+    super.key,
+    required this.onItemTapped,
+  });
+
+  final ValueChanged<int> onItemTapped; // Define the function type
 
   @override
   State<BottomNavigation> createState() => _BottomNavigationState();
@@ -30,6 +35,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
             setState(() {
               currentPageIndex = index;
             });
+            widget.onItemTapped(index); // Call the passed function with the index
           },
           destinations: <Widget>[
             NavigationDestination(

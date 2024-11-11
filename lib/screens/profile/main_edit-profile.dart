@@ -24,14 +24,6 @@ class EditProfileScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.settings, color: primary),
-            onPressed: () {
-              // Handle settings button tap
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -46,7 +38,7 @@ class EditProfileScreen extends StatelessWidget {
                   radius: 50,
                   backgroundImage: NetworkImage('https://example.com/profile.jpg'),
                 ),
-                Positioned(
+               /** Positioned(
                   bottom: 4,
                   right: 4,
                   child: Container(
@@ -62,7 +54,7 @@ class EditProfileScreen extends StatelessWidget {
                       size: 16,
                     ),
                   ),
-                ),
+                ),**/
               ],
             ),
             SizedBox(height: 12),
@@ -74,9 +66,9 @@ class EditProfileScreen extends StatelessWidget {
             SizedBox(height: 12),
             // Email Field
             _buildProfileField(label: 'Email', value: 'johndoe@example.com'),
-            SizedBox(height: 12),
+            /**SizedBox(height: 12),
             // Birth Date Field
-            _buildProfileField(label: 'Fecha De Nacimiento', value: 'DD / MM / YYYY'),
+            _buildProfileField(label: 'Fecha De Nacimiento', value: 'DD / MM / YYYY'),**/
             SizedBox(height: 24),
             // Update Button
             SizedBox(

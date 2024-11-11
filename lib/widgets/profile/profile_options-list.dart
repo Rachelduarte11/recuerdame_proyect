@@ -1,40 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
 
-class ProfileOptionList extends StatelessWidget {
-  const ProfileOptionList({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ProfileOptionItem(
-          icon: Icons.person,
-          label: "Perfil",
-          onTap: () {
-            // Handle navigation to "Perfil" screen
-          },
-        ),
-        ProfileOptionItem(
-          icon: Icons.settings,
-          label: "Configuración",
-          onTap: () {
-            // Handle navigation to "Configuración" screen
-          },
-        ),
-        ProfileOptionItem(
-          icon: Icons.logout,
-          label: "Salir",
-          onTap: () {
-            // Handle logout functionality
-          },
-        ),
-      ],
-    );
-  }
-}
-
-
 class ProfileOptionItem extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -88,5 +54,6 @@ class ProfileOptionItem extends StatelessWidget {
     );
   }
 }
+
 
 

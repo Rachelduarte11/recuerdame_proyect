@@ -29,7 +29,6 @@ class AddMedicationPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigation(),
     );
   }
 }

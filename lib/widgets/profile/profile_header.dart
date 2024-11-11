@@ -22,7 +22,7 @@ class ProfileHeader extends StatelessWidget {
               radius: 50,
               backgroundImage: NetworkImage(profileImageUrl),
             ),
-            Positioned(
+    /** Positioned(
               bottom: 4,
               right: 4,
               child: Container(
@@ -38,7 +38,7 @@ class ProfileHeader extends StatelessWidget {
                   size: 16,
                 ),
               ),
-            ),
+            ),**/
           ],
         ),
         SizedBox(height: 12),

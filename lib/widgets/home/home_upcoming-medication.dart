@@ -38,7 +38,7 @@ class ReminderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 220, // Fixed width to match the design
+      width: MediaQuery.of(context).size.width, // Fixed width to match the design
       padding: EdgeInsets.all(12),
       margin: EdgeInsets.only(right: 8), // Space between cards in the scrollable row
       decoration: BoxDecoration(
