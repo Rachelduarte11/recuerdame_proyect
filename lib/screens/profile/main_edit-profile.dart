@@ -36,7 +36,7 @@ class EditProfileScreen extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: NetworkImage('https://example.com/profile.jpg'),
+                  backgroundImage: NetworkImage('https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250'),
                 ),
                /** Positioned(
                   bottom: 4,

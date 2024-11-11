@@ -5,12 +5,8 @@ import 'package:recuerdame_proyect/widgets/medication/add-medication_form.dart';
 import 'package:recuerdame_proyect/widgets/medication/add-medication_header.dart';
 
 class AddMedicationPage extends StatelessWidget {
-  final MedicationRepository _medicationRepository = MedicationRepository();
-
   @override
   Widget build(BuildContext context) {
-    final medication = _medicationRepository.fetchMedication();
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(

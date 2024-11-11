@@ -36,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
           children: [
             ProfileHeader(
               userName: 'John Doe',
-              profileImageUrl: 'http://via.placeholder.com/150x150',
+              profileImageUrl: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
             ),
             SizedBox(height: 24),
             _buildProfileOptionList(context),

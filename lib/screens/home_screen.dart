@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recuerdame_proyect/domain/data/medication_repository.dart';
 import 'package:recuerdame_proyect/domain/models/medication_model.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
 import 'package:recuerdame_proyect/widgets/home/home_search-bar.dart';
@@ -6,7 +7,8 @@ import 'package:recuerdame_proyect/widgets/home/home_upcoming-medication.dart';
 import 'package:recuerdame_proyect/widgets/home/home_user-statics.dart';
 
 class HomeScreen extends StatelessWidget {
-  final medications = [MedicationModel(name: "Paracetamol", type: "Tabletas", duration: "1MES", frequency: "Diario")];
+  final MedicationRepository _medicationRepository = MedicationRepository();
+
 
   //Navigation
   void _navigateToNotificationView(BuildContext c) {
@@ -19,6 +21,8 @@ class HomeScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    final medication = _medicationRepository.fetchMedications();
+
     return Scaffold(
       backgroundColor: background,
       body: SafeArea(
@@ -33,7 +37,7 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 16),
               StatisticsSection(),
               SizedBox(height: 16),
-              UpcomingRemindersSection(medications: medications),
+              UpcomingRemindersSection(medications: medication),
               /**SizedBox(height: 16),
               ScheduleSection(),
               SizedBox(height: 16),
