@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class ChangePasswordScreen extends StatefulWidget {
+  const ChangePasswordScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _ChangePasswordScreenState createState() => _ChangePasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  // Controllers for text fields
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+  // Controllers for password fields
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   // State variables
-  bool _isPasswordVisible = false;
+  bool _isNewPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+  String _errorText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          'Iniciar Sesión',
+          'Cambiar Contraseña',
           style: TextStyle(
             color:primary,
             fontWeight: FontWeight.bold,
@@ -42,16 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Welcome Text
-            Text(
-              'Bienvenido',
-              style: TextStyle(
-                color:primary,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 8),
+            // Description Text
             Text(
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               style: TextStyle(
@@ -60,9 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(height: 24),
-            // DNI Field
+            // New Password Field
             Text(
-              'DNI',
+              'Nueva Contraseña',
               style: TextStyle(
                 color:txtColor,
                 fontSize: 16,
@@ -71,31 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 8),
             TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                hintText: 'example@example.com',
-                filled: true,
-                fillColor:secondary,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            // Password Field
-            Text(
-              'Contraseña',
-              style: TextStyle(
-                color:txtColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 8),
-            TextField(
-              controller: _passwordController,
-              obscureText: !_isPasswordVisible,
+              controller: _newPasswordController,
+              obscureText: !_isNewPasswordVisible,
               decoration: InputDecoration(
                 hintText: '********',
                 filled: true,
@@ -106,43 +76,69 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                    _isNewPasswordVisible ? Icons.visibility : Icons.visibility_off,
                     color:txtColor.withOpacity(0.6),
                   ),
                   onPressed: () {
                     setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
+                      _isNewPasswordVisible = !_isNewPasswordVisible;
+                    });
+                  },
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            // Confirm Password Field
+            Text(
+              'Confirmar Contraseña',
+              style: TextStyle(
+                color:txtColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: 8),
+            TextField(
+              controller: _confirmPasswordController,
+              obscureText: !_isConfirmPasswordVisible,
+              decoration: InputDecoration(
+                hintText: '********',
+                filled: true,
+                fillColor:secondary,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                    color:txtColor.withOpacity(0.6),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
                     });
                   },
                 ),
               ),
             ),
             SizedBox(height: 8),
-            // Forgot Password Link
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {
-                  // Handle "Forgot Password" action
-                },
+            // Error message if passwords do not match
+            if (_errorText.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  'Olvidé mi contraseña',
-                  style: TextStyle(
-                    color:primary,
-                    fontSize: 14,
-                  ),
+                  _errorText,
+                  style: TextStyle(color: Colors.red, fontSize: 14),
                 ),
               ),
-            ),
             SizedBox(height: 24),
-            // Login Button
+            // Accept Button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle login action using _emailController.text and _passwordController.text
-                  print('Email: ${_emailController.text}');
-                  print('Password: ${_passwordController.text}');
+                  _validatePassword();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor:primary,
@@ -152,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 child: Text(
-                  'Ingresar',
+                  'Aceptar',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -165,5 +161,21 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  // Validate if the new password and confirm password are the same
+  void _validatePassword() {
+    setState(() {
+      if (_newPasswordController.text != _confirmPasswordController.text) {
+        _errorText = 'Las contraseñas no coinciden';
+      } else {
+        _errorText = '';
+        // Proceed with password update logic here
+        print('New Password: ${_newPasswordController.text}');
+        // Clear fields after successful validation
+        _newPasswordController.clear();
+        _confirmPasswordController.clear();
+      }
+    });
   }
 }

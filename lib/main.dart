@@ -1,6 +1,7 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:recuerdame_proyect/screens/home_screen.dart';
+import 'package:recuerdame_proyect/screens/login_screen.dart';
 import 'package:recuerdame_proyect/screens/medication/add_medication.dart';
 import 'package:recuerdame_proyect/screens/notifications_reminders/notification_screen.dart';
 import 'package:recuerdame_proyect/screens/profile/main_config-profile.dart';
@@ -11,6 +12,8 @@ import 'package:recuerdame_proyect/screens/splash_screen.dart';
 import 'package:recuerdame_proyect/screens/welcome_screen.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
 import 'package:recuerdame_proyect/widgets/bottom_navigation.dart';
+
+import 'screens/login_forgot-password.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
       controller: EventController(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: NotificationSettingsScreen(),
+        home: ChangePasswordScreen(),
         title: 'Flutter Demo',
         theme: ThemeData(
           fontFamily: "LeagueSpartan",
