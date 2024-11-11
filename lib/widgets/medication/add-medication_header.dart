@@ -8,7 +8,7 @@ class MedicationHeader extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.teal,
         image: DecorationImage(
-          image: NetworkImage('https://via.placeholder.com/600x400'), // Replace with actual image URL or asset
+          image: AssetImage("assets/images/medicamentos.png"), // Replace with actual image URL or asset
           fit: BoxFit.cover,
         ),
       ),
@@ -17,12 +17,8 @@ class MedicationHeader extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () {},
-              ),
               Text(
                 'Añadir Receta',
                 style: TextStyle(
@@ -33,14 +29,14 @@ class MedicationHeader extends StatelessWidget {
               ),
               Row(
                 children: [
-                  IconButton(
+                  /**IconButton(
                     icon: Icon(Icons.search, color: Colors.white),
                     onPressed: () {},
-                  ),
-                  IconButton(
+                  ),**/
+                  /**IconButton(
                     icon: Icon(Icons.settings, color: Colors.white),
                     onPressed: () {},
-                  ),
+                  ),**/
                 ],
               ),
             ],
