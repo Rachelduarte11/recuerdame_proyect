@@ -13,7 +13,7 @@ class UpcomingRemindersSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Próximos Recordatorios',
+          'Medicacion para Hoy!',
           style: TextStyle(
             color: txtColor,
             fontWeight: FontWeight.bold,
@@ -22,9 +22,9 @@ class UpcomingRemindersSection extends StatelessWidget {
         ),
         SizedBox(height: 8),
         SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: medications.map((medication) => ReminderCard()).toList(),
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: medications.map((medication) => ReminderCard(medication: medication,)).toList(),
           ),
         ),
       ],
@@ -33,14 +33,15 @@ class UpcomingRemindersSection extends StatelessWidget {
 }
 
 class ReminderCard extends StatelessWidget {
-  const ReminderCard({Key? key}) : super(key: key);
+  final MedicationModel medication ;
+  const ReminderCard({Key? key, required this.medication }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width, // Fixed width to match the design
       padding: EdgeInsets.all(12),
-      margin: EdgeInsets.only(right: 8), // Space between cards in the scrollable row
+      margin: EdgeInsets.only(top: 8), // Space between cards in the scrollable row
       decoration: BoxDecoration(
         color: buttons.withOpacity(0.3), // Light blue background color for the card
         borderRadius: BorderRadius.circular(16), // Rounded corners for the card
@@ -50,7 +51,7 @@ class ReminderCard extends StatelessWidget {
         children: [
           // Date Container
           Container(
-            width: 60,
+            width: 70,
             padding: EdgeInsets.symmetric(vertical: 8),
             decoration: BoxDecoration(
               color: buttons, // Slightly darker blue for the date box
@@ -60,18 +61,12 @@ class ReminderCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '12',
+                  medication.hour_to_take,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: txtColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                  ),
-                ),
-                Text(
-                  'JUEVES',
-                  style: TextStyle(
-                    color: txtColor,
-                    fontSize: 10,
                   ),
                 ),
               ],
@@ -84,7 +79,7 @@ class ReminderCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '9:00 AM',
+                  medication.frequency,
                   style: TextStyle(
                     color: txtColor.withOpacity(0.8),
                     fontSize: 12,
@@ -92,29 +87,22 @@ class ReminderCard extends StatelessWidget {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  'Simvastatina',
+                 medication.description,
                   style: TextStyle(
                     color: txtColor,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.normal,
                     fontSize: 16,
-                  ),
-                ),
-                Text(
-                  'Simvastatina 20 mg',
-                  style: TextStyle(
-                    color: txtColor.withOpacity(0.6),
-                    fontSize: 12,
                   ),
                 ),
               ],
             ),
           ),
           // Options Icon
-          Icon(
+          /**Icon(
             Icons.more_vert,
             color: txtColor.withOpacity(0.7),
             size: 20,
-          ),
+          ),**/
         ],
       ),
     );

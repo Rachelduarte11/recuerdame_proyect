@@ -1,19 +1,17 @@
 class MedicationModel {
-  final String id;
-  final String name;
+  final String description;
   final String type; // e.g., "Tablet", "Injection", "Topical"
-  final String dosage; // e.g., "500mg"
   final String frequency; // e.g., "Daily", "Weekly"
   final String duration; // e.g., "1 Month"
-  final String notes; // Additional information if needed
+  final String start_date; // e.g., "1 Month"
+  final String hour_to_take;
 
   MedicationModel({
-    required this.id,
-    required this.name,
+    required this.description,
     required this.type,
-    required this.dosage,
     required this.frequency,
     required this.duration,
-    this.notes = "",
+    required this.hour_to_take,
+    required this.start_date,
   });
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recuerdame_proyect/domain/data/medication_repository.dart';
+import 'package:recuerdame_proyect/domain/data/statics_repository.dart';
+import 'package:recuerdame_proyect/domain/data/user_repository.dart';
 import 'package:recuerdame_proyect/domain/models/medication_model.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
 import 'package:recuerdame_proyect/widgets/home/home_search-bar.dart';
@@ -8,6 +10,8 @@ import 'package:recuerdame_proyect/widgets/home/home_user-statics.dart';
 
 class HomeScreen extends StatelessWidget {
   final MedicationRepository _medicationRepository = MedicationRepository();
+  final UserRepository _userRepository = UserRepository();
+  final StatisticsRepository _statsRepo = StatisticsRepository();
 
 
   //Navigation
@@ -22,6 +26,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final medication = _medicationRepository.fetchMedications();
+    final stats = _statsRepo.fetchStatistics();
+
 
     return Scaffold(
       backgroundColor: background,
@@ -35,7 +41,7 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 16),
               SearchBarHome(),
               SizedBox(height: 16),
-              StatisticsSection(),
+              StatisticsSection(stats: stats,),
               SizedBox(height: 16),
               UpcomingRemindersSection(medications: medication),
               /**SizedBox(height: 16),
@@ -51,13 +57,14 @@ class HomeScreen extends StatelessWidget {
 
 
   Widget _buildHeaderSection(BuildContext c) {
+    final userInfo = _userRepository.fetchUser();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           children: [
             CircleAvatar(
-              backgroundImage: NetworkImage('https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250'), // Placeholder image
+              backgroundImage: NetworkImage(userInfo.profileImageUrl), // Placeholder image
               radius: 24,
             ),
             SizedBox(width: 8),
@@ -65,14 +72,14 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Buenas Tardes',
+                  'Hola, ',
                   style: TextStyle(
                     color: primary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  'John Doe',
+                  userInfo.name,
                   style: TextStyle(
                     color: txtColor,
                     fontSize: 18,

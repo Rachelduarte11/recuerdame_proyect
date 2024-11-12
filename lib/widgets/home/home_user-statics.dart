@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:recuerdame_proyect/domain/models/statics_model.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
 
-class StatisticsSection extends StatelessWidget {
+
+class StatisticsSection extends StatefulWidget {
+  final StatisticsModel stats;
+
+  StatisticsSection({required this.stats});
+
+  @override
+  _StatisticsSectionState createState() => _StatisticsSectionState();
+}
+
+class _StatisticsSectionState extends State<StatisticsSection> {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildCompletedDaysStatCard('Días cumpliendo', '20', Icons.calendar_today),
+        _buildCompletedDaysStatCard('Días cumpliendo', widget.stats.daysCompleted, Icons.calendar_today),
         SizedBox(width: 8),
-        _buildPrescriptionsStatCard('Recetas', '2', Icons.receipt_long),
+        _buildPrescriptionsStatCard('Recetas', widget.stats.prescriptions, Icons.receipt_long),
       ],
     );
   }
 
-  Widget _buildCompletedDaysStatCard(String title, String count, IconData icon) {
+  Widget _buildCompletedDaysStatCard(String title, int count, IconData icon) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
@@ -26,7 +37,7 @@ class StatisticsSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Días cumpliendo',
+              title,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -36,10 +47,10 @@ class StatisticsSection extends StatelessWidget {
             SizedBox(height: 8),
             Row(
               children: [
-                Icon(Icons.local_fire_department, color: Colors.white, size: 24),
+                Icon(icon, color: Colors.white, size: 24),
                 SizedBox(width: 8),
                 Text(
-                  '20',
+                  "$count",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -54,7 +65,7 @@ class StatisticsSection extends StatelessWidget {
     );
   }
 
-  Widget _buildPrescriptionsStatCard(String title, String count, IconData icon) {
+  Widget _buildPrescriptionsStatCard(String title, int count, IconData icon) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
@@ -65,12 +76,13 @@ class StatisticsSection extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(Icons.description, color: Colors.white, size: 64),
-            SizedBox(height: 8),
+            Icon(icon, color: Colors.white, size: 64),
+            SizedBox(width: 8),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Recetas',
+                  title,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -79,7 +91,7 @@ class StatisticsSection extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 Text(
-                  '2',
+                  "$count",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

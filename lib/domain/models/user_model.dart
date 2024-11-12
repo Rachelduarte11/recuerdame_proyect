@@ -12,6 +12,6 @@ class UserModel {
     required this.email,
     required this.phone,
     required this.birthDate,
-    required this.profileImageUrl,
+    this.profileImageUrl = "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
   });
 }

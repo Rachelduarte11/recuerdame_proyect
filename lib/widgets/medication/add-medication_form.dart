@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:recuerdame_proyect/domain/data/medication_repository.dart';
+import 'package:recuerdame_proyect/domain/models/medication_model.dart';
 
 class MedicationForm extends StatefulWidget {
+  final Function onSubmit;
+
+  MedicationForm({required this.onSubmit});
+
   @override
   _MedicationFormState createState() => _MedicationFormState();
 }
@@ -9,10 +15,17 @@ class _MedicationFormState extends State<MedicationForm> {
   // Controllers for input fields
   final TextEditingController _medicationNameController = TextEditingController();
   final TextEditingController _durationController = TextEditingController();
-  final TextEditingController _frequencyController = TextEditingController();
   final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _frequencyController = TextEditingController();
 
   String selectedType = "Tabletas"; // Default selected type
+  String _selectedHour = "12:00 PM"; // Default selected hour
+  List<String> hours = [
+    "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM",
+    "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM",
+    "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM",
+    "8:00 PM", "9:00 PM"
+  ]; // Sample hours
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +50,13 @@ class _MedicationFormState extends State<MedicationForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionTitle("Nombre Del Medicamento"),
+          _buildSectionTitle("Notas de la toma"),
           const SizedBox(height: 4),
           TextField(
             controller: _medicationNameController,
             decoration: const InputDecoration(
-              hintText: "Ingrese el nombre del medicamento",
-              hintStyle: TextStyle(fontSize: 18, color: Colors.black),
+              hintText: "Ejemplo: Tomar Ibuprofeno",
+              hintStyle: TextStyle(fontSize: 16, color: Colors.grey, fontWeight: FontWeight.w100),
               isDense: true,
               contentPadding: EdgeInsets.symmetric(vertical: 8),
               enabledBorder: UnderlineInputBorder(
@@ -60,9 +73,10 @@ class _MedicationFormState extends State<MedicationForm> {
           const SizedBox(height: 16),
           _buildEditableInfoRow(),
           const SizedBox(height: 20),
+          _buildHourDropdown("Hora a tomar", _selectedHour),
+          const SizedBox(height: 20),
           Center(
             child: _buildAddButton(() {
-              // Handle Add button action here
               _submitForm();
             }),
           ),
@@ -73,16 +87,61 @@ class _MedicationFormState extends State<MedicationForm> {
 
   // Method to get all the data when the form is submitted
   void _submitForm() {
-    final String medicationName = _medicationNameController.text;
+    final String description = _medicationNameController.text;
     final String duration = _durationController.text;
-    final String frequency = _frequencyController.text;
     final String startDate = _startDateController.text;
+    final String frequency = _frequencyController.text;
 
-    print("Medication Name: $medicationName");
-    print("Type: $selectedType");
-    print("Duration: $duration");
-    print("Frequency: $frequency");
-    print("Start Date: $startDate");
+    // Create a new Medication instance
+    final medication = MedicationModel(
+      description: description,
+      type: selectedType,
+      duration: duration,
+      frequency: frequency,
+      start_date: startDate,
+      hour_to_take: _selectedHour,
+    );
+
+    // Save it to the repository
+    widget.onSubmit(medication);
+
+    // Show a SnackBar confirmation
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          "Receta agregada!",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.teal,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        duration: Duration(seconds: 2),
+        action: SnackBarAction(
+          label: 'OK',
+          textColor: Colors.white,
+          onPressed: () {
+            // Code to execute when 'OK' is pressed
+          },
+        ),
+      ),
+    );
+
+    // Clear the form after submission
+    _clearForm();
+  }
+
+  // Method to clear the form fields and reset selections
+  void _clearForm() {
+    setState(() {
+      _medicationNameController.clear();
+      _durationController.clear();
+      _startDateController.clear();
+      _frequencyController.clear();
+      selectedType = "Tabletas";
+      _selectedHour = "12:00 PM";
+    });
   }
 
   Widget _buildSectionTitle(String title) {
@@ -171,8 +230,8 @@ class _MedicationFormState extends State<MedicationForm> {
               hintText: placeholder,
               hintStyle: const TextStyle(
                 fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+                fontWeight: FontWeight.w300,
+                color: Colors.grey, // Non-bold placeholder style
               ),
               isDense: true,
               contentPadding: const EdgeInsets.symmetric(vertical: 8),
@@ -184,6 +243,48 @@ class _MedicationFormState extends State<MedicationForm> {
               ),
             ),
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHourDropdown(String title, String selectedHour) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 4),
+        Container(
+          width: 100,
+          child: DropdownButton<String>(
+            isExpanded: true,
+            value: selectedHour,
+            items: hours.map((hour) {
+              return DropdownMenuItem(
+                value: hour,
+                child: Text(
+                  hour,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: (newValue) {
+              setState(() {
+                _selectedHour = newValue!;
+              });
+            },
+            underline: Container(
+              height: 1,
+              color: Colors.grey.shade300,
+            ),
           ),
         ),
       ],
