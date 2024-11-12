@@ -30,3 +30,5 @@ class MedicationRepository {
     medications.add(medication);
   }
 }
+
+final MedicationRepository medicationRepo = MedicationRepository();

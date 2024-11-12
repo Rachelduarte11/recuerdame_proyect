@@ -11,7 +11,6 @@ import 'package:recuerdame_proyect/widgets/home/home_upcoming-medication.dart';
 import 'package:recuerdame_proyect/widgets/home/home_user-statics.dart';
 
 class HomeScreen extends ConsumerWidget {
-  final MedicationRepository _medicationRepository = MedicationRepository();
   final StatisticsRepository _statsRepo = StatisticsRepository();
 
   //Navigation
@@ -26,7 +25,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userInfo = ref.watch(authStateProvider); // Watch the user auth state
-    final medication = _medicationRepository.fetchMedications();
+    final medication = medicationRepo.fetchMedications();
     final stats = _statsRepo.fetchStatistics();
 
     return Scaffold(

@@ -6,10 +6,9 @@ import 'package:recuerdame_proyect/widgets/medication/add-medication_form.dart';
 import 'package:recuerdame_proyect/widgets/medication/add-medication_header.dart';
 
 class AddMedicationPage extends StatelessWidget {
-  final MedicationRepository repo = MedicationRepository();
 
   void _submitInfo(MedicationModel modelToSave) {
-    repo.addMedication(modelToSave);
+    medicationRepo.addMedication(modelToSave);
   }
 
   @override

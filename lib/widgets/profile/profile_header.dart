@@ -14,7 +14,7 @@ class ProfileHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Access the authStateProvider to retrieve the user name
-    final userName = ref.watch(authStateProvider)['email'] ?? 'Guest';
+    final userName = ref.watch(authStateProvider)['nombre'] ?? 'Guest';
 
     return Column(
       children: [
