@@ -8,7 +8,7 @@ class MedicationRepository {
         description: 'Tomar 2 tabletas de Paracetamol de 500mg',
         type: 'Tabletas',
         frequency: 'Diario',
-        duration: '1 Month',
+        duration: '1 Mes',
         hour_to_take: '1:00 PM',
         start_date: ''
     ),
@@ -16,7 +16,7 @@ class MedicationRepository {
         description: 'Inyectar 20cc de Insulina',
         type: 'Inyectables',
         frequency: 'Semanal',
-        duration: '2 Weeks',
+        duration: '2 Semanas',
         hour_to_take: '1:00 PM',
         start_date: ''
     ),

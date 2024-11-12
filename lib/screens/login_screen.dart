@@ -1,23 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recuerdame_proyect/api/auth_provider.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   // Controllers for text fields
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   // State variables
   bool _isPasswordVisible = false;
+  bool _isLoading = false;
 
-  void _navigateToHome(BuildContext c) {
-    Navigator.pushReplacementNamed(context, '/view');
+  Future<void> _handleLogin() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final loginResult = await ref.read(loginProvider({
+      'email': _emailController.text,
+      'password': _passwordController.text,
+    }).future);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (loginResult != null) {
+      // Navigate to Home if login is successful
+      Navigator.pushReplacementNamed(context, '/view');
+    } else {
+      // Show error if login failed
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Credenciales Invalidas!",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Colors.teal,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          duration: Duration(seconds: 2),
+          action: SnackBarAction(
+            label: 'OK',
+            textColor: Colors.white,
+            onPressed: () {
+              // Code to execute when 'OK' is pressed
+            },
+          ),
+        ),
+      );
+    }
   }
 
   @override
@@ -44,7 +86,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Welcome Text
               Text(
                 'Bienvenido',
                 style: TextStyle(
@@ -62,7 +103,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 24),
-              // DNI Field
               Text(
                 'DNI',
                 style: TextStyle(
@@ -85,7 +125,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 16),
-              // Password Field
               Text(
                 'Contraseña',
                 style: TextStyle(
@@ -108,9 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+                      _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                       color: txtColor.withOpacity(0.6),
                     ),
                     onPressed: () {
@@ -122,7 +159,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 8),
-              // Forgot Password Link
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
@@ -139,13 +175,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 24),
-              // Login Button
-              SizedBox(
+              _isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    _navigateToHome(context);
-                  },
+                  onPressed: _handleLogin,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primary,
                     padding: EdgeInsets.symmetric(vertical: 16),

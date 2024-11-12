@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recuerdame_proyect/api/auth_provider.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
 
-class ProfileHeader extends StatelessWidget {
-  final String userName;
+class ProfileHeader extends ConsumerWidget {
   final String profileImageUrl;
 
   const ProfileHeader({
     Key? key,
-    required this.userName,
     required this.profileImageUrl,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Access the authStateProvider to retrieve the user name
+    final userName = ref.watch(authStateProvider)['email'] ?? 'Guest';
+
     return Column(
       children: [
         Stack(
@@ -22,7 +25,9 @@ class ProfileHeader extends StatelessWidget {
               radius: 50,
               backgroundImage: NetworkImage(profileImageUrl),
             ),
-    /** Positioned(
+            // Uncomment this section if you want the edit icon overlay
+            /*
+            Positioned(
               bottom: 4,
               right: 4,
               child: Container(
@@ -38,7 +43,8 @@ class ProfileHeader extends StatelessWidget {
                   size: 16,
                 ),
               ),
-            ),**/
+            ),
+            */
           ],
         ),
         SizedBox(height: 12),

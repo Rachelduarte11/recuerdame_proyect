@@ -1,6 +1,7 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recuerdame_proyect/router/router_generator.dart';
 import 'package:recuerdame_proyect/router/router_main.dart';
 import 'package:recuerdame_proyect/utils/color_pallette.dart';
@@ -11,7 +12,9 @@ void main() {
     systemNavigationBarIconBrightness: Brightness.light, // Dark icons for navigation bar
   ));
 
-  runApp(const MyApp());
+  runApp(
+    ProviderScope(child: const MyApp())
+  );
 }
 
 class MyApp extends StatelessWidget {
