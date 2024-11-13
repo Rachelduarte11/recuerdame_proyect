@@ -208,7 +208,7 @@ class _MedicationFormState extends State<MedicationForm> {
       children: [
         _buildEditableInfoColumn("Duración", "1 Mes", _durationController),
         _buildEditableInfoColumn("Frecuencia", "Diario", _frequencyController),
-        _buildEditableInfoColumn("Comenzar", "Hoy", _startDateController),
+        /*_buildEditableInfoColumn("Comenzar", "Hoy", _startDateController),*/
       ],
     );
   }

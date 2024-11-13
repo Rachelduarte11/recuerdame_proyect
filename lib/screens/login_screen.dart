@@ -33,7 +33,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       _isLoading = false;
     });
 
-    if (loginResult != null) {
+    if (loginResult) {
       // Navigate to Home if login is successful
       Navigator.pushReplacementNamed(context, '/view');
     } else {
