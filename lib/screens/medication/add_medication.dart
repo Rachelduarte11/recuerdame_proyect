@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recuerdame_proyect/domain/data/medication_repository.dart';
+import 'package:recuerdame_proyect/domain/data/statics_repository.dart';
 import 'package:recuerdame_proyect/domain/models/medication_model.dart';
 import 'package:recuerdame_proyect/widgets/bottom_navigation.dart';
 import 'package:recuerdame_proyect/widgets/medication/add-medication_form.dart';
@@ -9,6 +10,7 @@ class AddMedicationPage extends StatelessWidget {
 
   void _submitInfo(MedicationModel modelToSave) {
     medicationRepo.addMedication(modelToSave);
+    statsRepo.newReceipt();
   }
 
   @override

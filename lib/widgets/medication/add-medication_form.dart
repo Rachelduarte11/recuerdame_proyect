@@ -18,6 +18,7 @@ class _MedicationFormState extends State<MedicationForm> {
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _frequencyController = TextEditingController();
 
+
   String selectedType = "Tabletas"; // Default selected type
   String _selectedHour = "12:00 PM"; // Default selected hour
   List<String> hours = [
@@ -71,7 +72,7 @@ class _MedicationFormState extends State<MedicationForm> {
           const SizedBox(height: 8),
           _buildTypeOptionsRow(),
           const SizedBox(height: 16),
-          _buildEditableInfoRow(),
+          _buildEditableInfoRow(context),
           const SizedBox(height: 20),
           _buildHourDropdown("Hora a tomar", _selectedHour),
           const SizedBox(height: 20),
@@ -91,6 +92,7 @@ class _MedicationFormState extends State<MedicationForm> {
     final String duration = _durationController.text;
     final String startDate = _startDateController.text;
     final String frequency = _frequencyController.text;
+
 
     // Create a new Medication instance
     final medication = MedicationModel(
@@ -202,12 +204,14 @@ class _MedicationFormState extends State<MedicationForm> {
     );
   }
 
-  Widget _buildEditableInfoRow() {
+  Widget _buildEditableInfoRow(BuildContext c) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         _buildEditableInfoColumn("Duración", "1 Mes", _durationController),
+        SizedBox(width: 8,),
         _buildEditableInfoColumn("Frecuencia", "Diario", _frequencyController),
+        /*buildDateInputField(c, _startDateController),*/
         /*_buildEditableInfoColumn("Comenzar", "Hoy", _startDateController),*/
       ],
     );
@@ -246,6 +250,36 @@ class _MedicationFormState extends State<MedicationForm> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget buildDateInputField(BuildContext context, TextEditingController c) {
+    return Flexible(
+      child: TextField(
+        controller: c,
+        readOnly: true,
+        style: TextStyle(color: Colors.grey), // Change text color here
+        decoration: InputDecoration(
+          labelText: 'Select Date',
+          suffixIcon: Icon(Icons.calendar_today),
+          border: OutlineInputBorder(),
+        ),
+        onTap: () async {
+          DateTime? pickedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2100),
+          );
+
+          if (pickedDate != null) {
+            setState(() {
+              c.text =
+              "${pickedDate.year}-${pickedDate.month}-${pickedDate.day}";
+            });
+          }
+        },
+      ),
     );
   }
 

@@ -20,6 +20,7 @@ final loginProvider = FutureProvider.family<bool, Map<String, String>>((ref, cre
 
   if (response != null) {
     ref.read(authStateProvider.notifier).update((state) => {"nombre": response["nombre"]});
+    return true;
   }
 
   return false;

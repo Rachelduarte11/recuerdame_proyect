@@ -11,7 +11,6 @@ import 'package:recuerdame_proyect/widgets/home/home_upcoming-medication.dart';
 import 'package:recuerdame_proyect/widgets/home/home_user-statics.dart';
 
 class HomeScreen extends ConsumerWidget {
-  final StatisticsRepository _statsRepo = StatisticsRepository();
 
   //Navigation
   void _navigateToNotificationView(BuildContext c) {
@@ -26,7 +25,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userInfo = ref.watch(authStateProvider); // Watch the user auth state
     final medication = medicationRepo.fetchMedications();
-    final stats = _statsRepo.fetchStatistics();
+    final stats = statsRepo.fetchStatistics();
 
     return Scaffold(
       backgroundColor: background,
